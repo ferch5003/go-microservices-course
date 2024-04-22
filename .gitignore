@@ -1,0 +1,14 @@
+# IDEs
+.idea
+
+go-microservices-course.iml
+
+# Temporary files
+tmp
+
+# Environments
+.env
+.env.prod
+
+# Coverage
+profile.cov
