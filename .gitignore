@@ -12,3 +12,10 @@ tmp
 
 # Coverage
 profile.cov
+
+# Builds
+brokerApp
+frontApp
+
+# DS Store
+.DS_Store
