@@ -16,6 +16,10 @@ profile.cov
 # Builds
 brokerApp
 frontApp
+authApp
 
 # DS Store
 .DS_Store
+
+# DB Files
+*/db-data/*/
