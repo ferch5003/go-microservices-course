@@ -104,7 +104,7 @@ func (app *Config) LogItem(w http.ResponseWriter, entry LogPayload) {
 	// create some json we'll send to the log microservice
 	jsonData, _ := json.MarshalIndent(entry, "", "\t")
 
-	logServiceURL := "http://log-service/log"
+	logServiceURL := "http://logger-service/log"
 
 	request, err := http.NewRequest(http.MethodPost, logServiceURL, bytes.NewBuffer(jsonData))
 	if err != nil {
@@ -114,7 +114,7 @@ func (app *Config) LogItem(w http.ResponseWriter, entry LogPayload) {
 
 	request.Header.Set("Content-Type", "application/json")
 
-	client := http.Client{}
+	client := &http.Client{}
 
 	response, err := client.Do(request)
 	if err != nil {
