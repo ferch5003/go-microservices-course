@@ -17,6 +17,7 @@ profile.cov
 brokerApp
 frontApp
 authApp
+loggerServiceApp
 
 # DS Store
 .DS_Store

@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   pgdata:
+  mongodata:
 
 services:
   broker-service:
@@ -11,6 +12,16 @@ services:
     restart: always
     ports:
       - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+    user: '${UID}:${GID}'
+
+  logger-service:
+    build:
+      context: ./../logger-service
+      dockerfile: ./../logger-service/logger-service.dockerfile
+    restart: always
     deploy:
       mode: replicated
       replicas: 1
@@ -46,3 +57,14 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data/
     user: '${UID}:${GID}'
+
+  mongo:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: logs
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodata:/data/db
