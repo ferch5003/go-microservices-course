@@ -19,6 +19,7 @@ frontApp
 authApp
 loggerServiceApp
 mailerServiceApp
+listenerApp
 
 # DS Store
 .DS_Store
