@@ -27,7 +27,7 @@ services:
       replicas: 1
     user: '${UID}:${GID}'
 
-  mail-service:
+  mailer-service:
     build:
       context: ./../mail-service
       dockerfile: ./../mail-service/mail-service.dockerfile

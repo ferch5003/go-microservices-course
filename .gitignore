@@ -18,6 +18,7 @@ brokerApp
 frontApp
 authApp
 loggerServiceApp
+mailerServiceApp
 
 # DS Store
 .DS_Store
