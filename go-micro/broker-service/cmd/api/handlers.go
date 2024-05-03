@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/rpc"
 
 	"github.com/ferch5003/go-microservices-course/event"
 )
@@ -55,8 +56,10 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 		app.Authenticate(w, requestPayload.Auth)
 	//case "log":
 	//	app.LogItem(w, requestPayload.Log)
+	//case "log":
+	//	app.logEventViaRabbit(w, requestPayload.Log)
 	case "log":
-		app.logEventViaRabbit(w, requestPayload.Log)
+		app.logItemViaRPC(w, requestPayload.Log)
 	case "mail":
 		app.SendMail(w, requestPayload.Mail)
 	default:
@@ -217,4 +220,33 @@ func (app *Config) pushToQueue(name, message string) error {
 	}
 
 	return nil
+}
+
+type RPCPayload struct {
+	Name string
+	Data string
+}
+
+func (app *Config) logItemViaRPC(w http.ResponseWriter, l LogPayload) {
+	client, err := rpc.Dial("tcp", "logger-service:5001")
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
+	rpcPayload := RPCPayload{
+		Name: l.Name,
+		Data: l.Data,
+	}
+
+	var result string
+	if err := client.Call("RPCServer.LogInfo", rpcPayload, &result); err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
+	var payload jsonResponse
+	payload.Message = result
+
+	app.writeJSON(w, http.StatusAccepted, payload)
 }
