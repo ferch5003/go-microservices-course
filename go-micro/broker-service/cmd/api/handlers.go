@@ -265,7 +265,7 @@ func (app *Config) LogViaGRPC(w http.ResponseWriter, r *http.Request) {
 	}
 
 	conn, err := grpc.Dial(
-		"logger-service:500001",
+		"logger-service:50001",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithBlock())
 	if err != nil {
