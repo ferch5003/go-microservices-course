@@ -20,9 +20,13 @@ authApp
 loggerServiceApp
 mailerServiceApp
 listenerApp
+frontEndApp
 
 # DS Store
 .DS_Store
 
 # DB Files
 */db-data/*/
+
+# Caddyfile
+Caddyfile
