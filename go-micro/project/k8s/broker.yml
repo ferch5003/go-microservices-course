@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rabbit
+  name: broker-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rabbit
+      app: broker-service
   template:
     metadata:
       labels:
-        app: rabbit
+        app: broker-service
     spec:
       containers:
-        - name: rabbit
-          image: "rabbitmq:3.13-alpine"
+        - name: broker-service
+          image: "ferch5003/broker-service:1.0.1"
           resources:
             requests:
               memory: "6Mi"
@@ -23,19 +23,19 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           ports:
-            - containerPort: 5672
+            - containerPort: 8080
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq
+  name: broker-service
 spec:
   selector:
-    name: rabbitmq
+    name: broker-service
   ports:
     - protocol: TCP
       name: main-port
-      port: 5672
-      targetPort: 5672
+      port: 8080
+      targetPort: 8080
