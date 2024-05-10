@@ -17,10 +17,10 @@ spec:
         image: "mongo:latest"
         resources:
           requests:
-            memory: "6Mi"
+            memory: "128Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
         env:
           - name: MONGO_INITDB_DATABASE
@@ -40,7 +40,7 @@ metadata:
   name: mongo
 spec:
   selector:
-    name: mongo
+    app: mongo
   ports:
     - protocol: TCP
       name: main-port

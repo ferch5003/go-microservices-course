@@ -17,7 +17,7 @@ spec:
           image: "ferch5003/broker-service:1.0.1"
           resources:
             requests:
-              memory: "6Mi"
+              memory: "64Mi"
               cpu: "250m"
             limits:
               memory: "128Mi"
@@ -33,7 +33,7 @@ metadata:
   name: broker-service
 spec:
   selector:
-    name: broker-service
+    app: broker-service
   ports:
     - protocol: TCP
       name: main-port
