@@ -6,10 +6,9 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os"
 )
 
-const _webPort = "8082"
+const _webPort = "80"
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +54,8 @@ func render(w http.ResponseWriter, t string) {
 		BrokerURL string
 	}
 
-	data.BrokerURL = os.Getenv("BROKER_URL")
+	//data.BrokerURL = os.Getenv("BROKER_URL")
+	data.BrokerURL = "http://localhost:8080"
 
 	// execute the template
 	if err := tmpl.Execute(w, data); err != nil {
